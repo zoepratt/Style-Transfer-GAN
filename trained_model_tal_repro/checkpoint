@@ -1,0 +1,2 @@
+model_checkpoint_path: "trained_genadv_tal_repro.ckpt-3"
+all_model_checkpoint_paths: "trained_genadv_tal_repro.ckpt-3"
