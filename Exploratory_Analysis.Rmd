@@ -1,0 +1,147 @@
+---
+title: "DA 401"
+author: "Zoe Pratt"
+date: "3/1/2022"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+# load libraries
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(car)
+library(rstatix)
+library(equivalence)
+library(knitr)
+```
+
+
+```{r}
+# read data
+raw_players = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/player_piece_sac_data.csv')
+
+# determine 4 players with fewest games
+raw_players %>%
+  group_by(player) %>%
+  count()
+```
+
+```{r}
+# remove unused players
+game_data <- raw_players %>%
+  filter(player != 'Botvinnik' & player != 'Capablanca' & player != 'Fischer' & player != 'Morphy')
+
+# remove entries where there are 0 moves reported
+game_data <- game_data %>%
+  filter(moves != 0)
+
+# remove file name column for ease of viewing
+game_data <- game_data %>%
+  dplyr::select(-file_name)
+
+# total number of game sin dataset for each player
+game_data %>% count(player)
+```
+
+```{r}
+# create variable that is criteria for classifying as aggressive or defensive
+agg_def <- game_data %>%
+  group_by(player) %>%
+  summarise(criteria = mean(total_sac/moves)) 
+```
+
+```{r}
+# create individual datasets for each player for potential future use
+alekhine <- game_data%>%
+  filter(player == 'Alekhine')
+
+anand <- game_data %>%
+  filter(player == 'Anand')
+
+carlsen <- game_data %>%
+  filter(player == 'Carlsen')
+
+caruana <- game_data %>%
+  filter(player == 'Caruana')
+
+kasparov <- game_data %>%
+  filter(player == 'Kasparov')
+
+nakamura <- game_data %>%
+  filter(player == 'Nakamura')
+
+polgar <- game_data %>%
+  filter(player == 'Polgar')
+
+tal <- game_data %>%
+  filter(player == 'Tal')
+```
+
+```{r message=FALSE}
+# histogram for total moves
+ggplot(game_data, aes(x = moves))+
+  geom_histogram(fill = 'lightgreen', color = 'darkgreen') +
+  labs(x = 'Number of Moves in Chess Match', y = 'Count', title = 'Distribution of Number of Moves in a Chess Match') +
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+```{r}
+# summary statistics for total moves and pieces sacrificed
+mean(game_data$moves)
+median(game_data$moves)
+max(game_data$moves)
+mean(game_data$total_sac)
+median(game_data$total_sac)
+max(game_data$total_sac)
+```
+
+```{r message=FALSE}
+# histogram of total pieces sacrificed
+ggplot(game_data, aes(x = total_sac))+
+  geom_histogram(fill = 'lightblue', color = 'darkblue') +
+  labs(x = 'Number of Pieces Sacrificed in Chess Match', y = 'Count', title = 'Distribution of Number of Pieces Sacrificed in a Chess Match') +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5)) 
+```
+
+```{r}
+# boxplot of total moves
+ggplot(game_data, aes(x = player, y = moves))+
+  geom_boxplot() +
+  labs(x = 'Player', y='Number of Moves in Chess Match', title = 'Number of Moves in a Match by Player') +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+```{r}
+# boxplot of pieces sacrificed 
+ggplot(game_data, aes(x = player, y = total_sac))+
+  geom_boxplot() + 
+  labs(x = 'Player', y='Number of Pieces Sacrificed in Chess Match', title = 'Number of Pieces Sacrificed in a Match by Player') + theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+# Kruskal Wallis test of total moves
+kruskal.test(moves ~ player, data = game_data)
+```
+
+
+```{r}
+# Pairwise comparisons of total moves
+pairwise.wilcox.test(game_data$moves, game_data$player,
+                 p.adjust.method = "BH")
+```
+
+```{r}
+# Kruskal-Wallis test for pieces sacrificed
+kruskal.test(total_sac ~ player, data = game_data)
+```
+
+```{r}
+# Pairwise comparisons for pieces sacrificed
+pairwise.wilcox.test(game_data$total_sac, game_data$player,
+                 p.adjust.method = "BH")
+```
+
