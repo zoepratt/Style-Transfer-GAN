@@ -1,0 +1,203 @@
+---
+title: "Tournament Analysis"
+author: "Zoe Pratt"
+date: "4/6/2022"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(car)
+library(rstatix)
+library(equivalence)
+library(knitr)
+```
+
+```{r}
+player_data = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/player_piece_sac_data.csv')
+tour_data = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/models_game_data.csv')
+
+player_data <- raw_players %>%
+  filter(player != 'Botvinnik' & player != 'Capablanca' & player != 'Fischer' & player != 'Morphy')
+
+# remove entries where there are 0 moves reported
+player_data <- player_data %>%
+  filter(moves != 0)
+
+# remove file name column for ease of viewing
+player_data <- player_data %>%
+  dplyr::select(-file_name)
+
+# total number of game sin dataset for each player
+player_data %>% count(player)
+```
+
+```{r}
+alekhine <- player_data%>%
+  filter(player == 'Alekhine')
+
+anand <- player_data %>%
+  filter(player == 'Anand')
+
+carlsen <- player_data %>%
+  filter(player == 'Carlsen')
+
+caruana <- player_data %>%
+  filter(player == 'Caruana')
+
+kasparov <- player_data %>%
+  filter(player == 'Kasparov')
+
+nakamura <- player_data %>%
+  filter(player == 'Nakamura')
+
+polgar <- player_data %>%
+  filter(player == 'Polgar')
+
+tal <- player_data %>%
+  filter(player == 'Tal')
+```
+
+```{r}
+alekhine_gan <- tour_data%>%
+  filter(player == 'Alekhine')
+
+anand_gan <- tour_data %>%
+  filter(player == 'Anand')
+
+carlsen_gan <- tour_data %>%
+  filter(player == 'Carlsen')
+
+caruana_gan <- tour_data %>%
+  filter(player == 'Caruana')
+
+kasparov_gan <- tour_data %>%
+  filter(player == 'Kasparov')
+
+nakamura_gan <- tour_data %>%
+  filter(player == 'Nakamura')
+
+polgar_gan <- tour_data %>%
+  filter(player == 'Polgar')
+
+tal_gan <- tour_data %>%
+  filter(player == 'Tal')
+```
+
+
+```{r}
+ggplot(tour_data, aes(x = num_moves))+
+  geom_histogram(fill = 'lightgreen', color = 'darkgreen') +
+  labs(x = 'Number of Moves in Chess Match', y = 'Count', title = 'Distribution of Number of Moves in a Chess Match') +
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+ggplot(tour_data, aes(x = total_sac))+
+  geom_histogram(fill = 'lightblue', color = 'blue') +
+  labs(x = 'Number of Moves in Chess Match', y = 'Count', title = 'Distribution of Number of Moves in a Chess Match') +
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+kruskal.test(moves ~ Player, data = tour_data)
+```
+
+```{r}
+kruskal.test(sac_game ~ player, data = tour_data)
+```
+
+```{r}
+kruskal.test(moves ~ player, data = tour_data)
+```
+
+```{r}
+t.test(alekhine$total_sac,alekhine_gan$sac_game)
+```
+
+```{r}
+t.test(alekhine$moves,alekhine_gan$moves)
+```
+
+```{r}
+t.test(anand$total_sac,anand_gan$sac_game)
+```
+
+```{r}
+t.test(anand$moves,anand_gan$moves)
+```
+
+```{r}
+t.test(carlsen$total_sac,carlsen_gan$sac_game)
+```
+
+```{r}
+t.test(carlsen$moves,carlsen_gan$moves)
+```
+
+```{r}
+t.test(caruana$total_sac,caruana_gan$sac_game)
+```
+
+```{r}
+t.test(caruana$moves,caruana_gan$moves)
+```
+
+```{r}
+t.test(kasparov$total_sac,kasparov_gan$sac_game)
+```
+
+```{r}
+t.test(kasparov$moves,kasparov_gan$moves)
+```
+
+```{r}
+t.test(nakamura$total_sac,nakamura_gan$sac_game)
+```
+
+```{r}
+t.test(nakamura$moves,nakamura_gan$moves)
+```
+
+```{r}
+t.test(polgar$total_sac,polgar_gan$sac_game)
+```
+
+```{r}
+t.test(polgar$moves,polgar_gan$moves)
+```
+
+```{r}
+t.test(tal$total_sac,tal_gan$sac_game)
+```
+
+```{r}
+t.test(tal$moves,tal_gan$moves)
+```
+
+```{r}
+agg_def <- player_data %>%
+  group_by(player) %>%
+  summarise(player_criteria = mean(total_sac/moves)) 
+```
+
+```{r}
+agg_def_tour <- tour_data %>%
+  group_by(player) %>%
+  summarise(tour_criteria= mean(sac_game/moves))
+```
+
+```{r}
+agg_def_merged <- merge(agg_def, agg_def_tour, by = "player")
+```
+
+```{r}
+ggplot(agg_def_merged, aes(x = player_criteria, y = tour_criteria, color = player))+
+  geom_point()+
+  geom_smooth(method='lm')
+```
+
