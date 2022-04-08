@@ -1,2 +1,10 @@
 Zoe Pratt (c) 2022
-DA401 Final Capstone Project
+
+**DA:401 Senior Seminar in Data Analytics**
+Final Capstone Project
+
+Analyzing the gameplay of eight top chess Grand Masters using generative adversarial networks.
+
+**Data:** sourced from chess.com and ficsgames.org
+
+**Code:** completed in Jupyter Notebooks and R.
