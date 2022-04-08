@@ -16,7 +16,7 @@ library(knitr)
 ```
 
 ```{r}
-player_data = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/player_piece_sac_data.csv')
+player_data = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/data/player_piece_sac_data.csv')
 tour_data = read.csv('/Users/zoepratt/Documents/GitHub/Style-Transfer-GAN/models_game_data.csv')
 
 player_data <- raw_players %>%
@@ -104,15 +104,11 @@ ggplot(tour_data, aes(x = total_sac))+
 ```
 
 ```{r}
-kruskal.test(moves ~ Player, data = tour_data)
+kruskal.test(moves ~ player, data = tour_data)
 ```
 
 ```{r}
 kruskal.test(sac_game ~ player, data = tour_data)
-```
-
-```{r}
-kruskal.test(moves ~ player, data = tour_data)
 ```
 
 ```{r}
@@ -196,8 +192,18 @@ agg_def_merged <- merge(agg_def, agg_def_tour, by = "player")
 ```
 
 ```{r}
-ggplot(agg_def_merged, aes(x = player_criteria, y = tour_criteria, color = player))+
-  geom_point()+
-  geom_smooth(method='lm')
+nakamura_gan$pieces_taken = nakamura_gan$sac_game - nakamura_gan$sac_player
+```
+
+```{r}
+mean(nakamura_gan$moves)
+```
+
+```{r}
+mean(nakamura_gan$pieces_taken)
+```
+
+```{r}
+t.test(nakamura_gan$moves,nakamura$moves)
 ```
 
