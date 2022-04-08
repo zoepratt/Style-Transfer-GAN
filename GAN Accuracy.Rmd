@@ -88,22 +88,6 @@ tal_gan <- tour_data %>%
 
 
 ```{r}
-ggplot(tour_data, aes(x = num_moves))+
-  geom_histogram(fill = 'lightgreen', color = 'darkgreen') +
-  labs(x = 'Number of Moves in Chess Match', y = 'Count', title = 'Distribution of Number of Moves in a Chess Match') +
-  theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-```{r}
-ggplot(tour_data, aes(x = total_sac))+
-  geom_histogram(fill = 'lightblue', color = 'blue') +
-  labs(x = 'Number of Moves in Chess Match', y = 'Count', title = 'Distribution of Number of Moves in a Chess Match') +
-  theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-```{r}
 kruskal.test(moves ~ player, data = tour_data)
 ```
 
@@ -203,7 +187,4 @@ mean(nakamura_gan$moves)
 mean(nakamura_gan$pieces_taken)
 ```
 
-```{r}
-t.test(nakamura_gan$moves,nakamura$moves)
-```
 
