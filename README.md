@@ -13,10 +13,12 @@ The majority of the code files in this research are too computationally intense 
 
 To run the code files in full (though not recommended on a local computer), the following order should be used:
 
-**1:** All files in folder "Get_data". These parse through the PGN files provided and create numpy arrays for each chess board layout.
+**1:** All files in folder "Get data". These parse through the PGN files provided and create numpy arrays for each chess board layout.
 
-**2:** All files in folder "Create_models". These create a unique GAN model for each player
+**2:** All files in folder "Create models". These create a unique GAN model for each player
 
 **3:** All files in folder "Tournaments", going in sequential order for the round (one, then two, then three). Here, the tournaments could potentially return different winners, so the GAN models used in subsequent tournaments would have to be altered.
 
 **4**: Tournament analysis and GAN accuracy files (both .ipynb and .Rmd files) to analyze the winner's tournament play, as well as assess the overall accuracy of the GANs.
+
+**Note for all code files:** The file paths included in the code files are written to track the path to the file on my local computer. These should be updated to reflect where you store the data, as well as where you want the saved models/data to store on your computer.
