@@ -9,7 +9,7 @@ This research analyzes the gameplay of eight top chess Grand Masters. To do so, 
 
 **Code:** completed in Jupyter Notebooks and R.
 
-The majority of the code files in this research are too computationally intense to be run on a local computer, so a remote Linux server was used. For ease of code review, I've included a Jupyter Notebook file titled **Model_Reproducible.ipynb** that uses condensed forms of the dataset (only 2 games from the PGN file) to extract the data, train 2 GAN models, and have them play against each other using condensed forms of the data. 
+The majority of the code files in this research are too computationally intense to be run on a local computer, so a remote Linux server was used. For ease of code review, I've included a Jupyter Notebook file titled **Code_Reproducible.ipynb** that uses condensed forms of the dataset (only 2 games from the PGN file) to extract the data, train 2 GAN models, and have them play against each other using condensed forms of the data. 
 
 To run the code files in full (though not recommended on a local computer), the following order should be used:
 
