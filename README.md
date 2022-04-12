@@ -5,7 +5,9 @@ Final Capstone Project
 
 This research analyzes the gameplay of eight top chess Grand Masters. To do so, unique style transfer generative adversarial networks (GANs) are created for each player. Then, the GAN models competed in a virtual chess tournament. Lastly, the accuracy of the GAN models was assessed.
 
-**Data:** downloaded from [kaggle.com](https://www.kaggle.com/liury123/chess-game-from-12-top-players/activitysourced), which was originally sourced from [chess.com](https://www.chess.com/games) and [ficsgames.org](https://www.ficsgames.org/download.html).
+**Data:** downloaded from [kaggle.com](https://www.kaggle.com/liury123/chess-game-from-12-top-players/activitysourced), but was originally sourced from [chess.com](https://www.chess.com/games) and [ficsgames.org](https://www.ficsgames.org/download.html).
+
+Data from kaggle contained at least 1,000 PGN files for each player, so these were combined into a single PGN file using **New PGN files.ipynb**. These already combined files can be found in the **data** folder.
 
 **Code:** completed in Jupyter Notebooks and R.
 
