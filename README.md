@@ -11,7 +11,7 @@ Data from kaggle contained at least 1,000 PGN files for each player, so these we
 
 **Code:** completed in Jupyter Notebooks and R.
 
-The following packages must be installed in order for the code to run: pickle, numpy, tensorflow, os, os.path, chess, chess.pgn, h5py, and random.
+The following packages **must** be installed in order for the code to run: pickle, numpy, tensorflow, os, os.path, chess, chess.pgn, h5py, and random.
 
 The majority of the code files in this research are too computationally intense to be run on a local computer, so a remote Linux server was used. For ease of code review, I've included a Jupyter Notebook file titled **Code_Reproducible.ipynb** that uses condensed forms of the dataset (only 2 games from the PGN file) to extract the data, train 2 GAN models, and have them play against each other using condensed forms of the data. 
 
