@@ -187,4 +187,8 @@ mean(nakamura_gan$moves)
 mean(nakamura_gan$pieces_taken)
 ```
 
+```{r}
+mean(player_data$moves)
+```
+
 
