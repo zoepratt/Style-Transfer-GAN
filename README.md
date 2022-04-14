@@ -7,7 +7,7 @@ This research analyzes the gameplay of eight top chess Grand Masters. To do so, 
 
 **Data:** downloaded from [kaggle.com](https://www.kaggle.com/datasets/liury123/chess-game-from-12-top-players), but was originally sourced from [chess.com](https://www.chess.com/games) and [ficsgames.org](https://www.ficsgames.org/download.html).
 
-Data from kaggle contained at least 1,000 PGN files for each player, so these were combined into a single PGN file using **New_PGN_files.ipynb**. These already combined files can be found in the **data** folder.
+Data from kaggle contained at least 1,000 PGN files for each player, so these were combined into a single PGN file using **New_PGN_files.ipynb**. These already combined files can be found in the **data** folder, while the raw data files can found in the folder **Raw_game**.
 
 **Code:** completed in Jupyter Notebooks and R.
 
